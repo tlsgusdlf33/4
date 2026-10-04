@@ -1,0 +1,69 @@
+# 추적할 상품 목록. 아래 5개는 예시이니 내가 사려던 상품으로 바꾸세요.
+#
+# source
+#   "11st"    11번가 Open API 검색 (무료, 키만 발급하면 바로 사용)   → query 필요
+#   "coupang" 쿠팡 파트너스 API 검색 (최종 승인 후에만 키 발급)     → query 필요
+#   "webpage" 상품 페이지의 JSON-LD/메타태그에서 가격 읽기           → url 필요
+#
+# 정확도 팁
+#   1) `python -m pricebot search 11st "검색어"`로 결과를 보고
+#   2) 원하는 상품의 code를 product_code에 넣으면 그 상품만 추적합니다.
+#   product_code가 없으면 include를 모두 포함 + exclude를 하나도 포함하지 않는 결과 중 최저가.
+#
+# affiliate_url
+#   쿠팡 파트너스 대시보드에서 직접 만든 링크 등. "가격을 확인한 바로 그 상품"의 링크일 때만
+#   넣으세요 (다른 몰 링크를 달면 알림 가격과 실제 가격이 달라집니다).
+#   제휴 링크가 붙은 알림에는 대가성 문구가 자동으로 들어갑니다.
+
+[settings]
+# 쿠팡 링크에는 쿠팡 파트너스 지정 문구가 자동 사용되고, 그 외 제휴 링크에는 이 문구가 붙습니다.
+disclosure = "※ 이 알림의 링크는 제휴 링크로, 구매 시 운영자가 수수료를 받을 수 있습니다."
+history_limit = 120  # 상품별로 보관할 가격 변동 기록 수
+
+[[products]]
+id = "airpods-pro2"            # 상태 저장용 고유 키 (바꾸면 기록이 새로 시작됨)
+name = "에어팟 프로 2 (USB-C)"
+target_price = 250000          # 이 가격 이하가 되면 알림
+source = "11st"
+query = "에어팟 프로 2세대 USB-C"
+include = ["에어팟", "프로"]
+exclude = ["케이스", "필름", "커버", "스킨", "중고", "리퍼", "이어팁", "호환"]
+product_code = ""
+
+[[products]]
+id = "galaxy-buds"
+name = "갤럭시 버즈3 프로"
+target_price = 200000
+source = "11st"
+query = "갤럭시 버즈3 프로"
+include = ["버즈3", "프로"]
+exclude = ["케이스", "필름", "커버", "중고", "리퍼", "이어팁", "호환"]
+
+[[products]]
+id = "robot-vacuum"
+name = "로봇청소기 (모델명으로 교체)"
+target_price = 600000
+source = "11st"
+query = "로봇청소기 모델명"
+include = []
+exclude = ["필터", "브러시", "걸레", "소모품", "중고"]
+enabled = false                # 모델명을 정하면 true로
+
+[[products]]
+id = "coffee-beans"
+name = "원두 1kg (쿠팡 승인 후 사용)"
+target_price = 25000
+source = "coupang"
+query = "원두 1kg"
+include = ["1kg"]
+exclude = []
+enabled = false                # 쿠팡 파트너스 API 키 발급 후 true로
+
+[[products]]
+id = "brand-store-item"
+name = "공식몰 상품 (URL 교체)"
+target_price = 100000
+source = "webpage"
+url = "https://example.com/products/123"
+# price_regex = '"salePrice"\s*:\s*(\d+)'   # JSON-LD/메타태그가 없을 때만
+enabled = false
