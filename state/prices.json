@@ -1,11 +1,11 @@
 {
   "airpods-pro2": {
-    "error_streak": 4,
+    "error_streak": 5,
     "last_error": "환경변수 ELEVENST_API_KEY가 없음 (11번가 OPENAPI CENTER에서 발급)",
     "name": "에어팟 프로 2 (USB-C)"
   },
   "galaxy-buds": {
-    "error_streak": 4,
+    "error_streak": 5,
     "last_error": "환경변수 ELEVENST_API_KEY가 없음 (11번가 OPENAPI CENTER에서 발급)",
     "name": "갤럭시 버즈3 프로"
   }
